@@ -11,14 +11,17 @@ from utils_resp.utils_resp import get_resp, get_mask
 from utils_ridge.ridge import ridge, bootstrap_ridge
 np.random.seed(42)
 
+# This file generates random baseline by shuffling brain response vectors
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--subject", type = str, required = True) #'01' to '09'
+    # edit: somehow need to work with other models
     parser.add_argument("--gpt", type = str, default = "perceived")
     parser.add_argument("--layer", type = int) #layer from 0 to 11
-    parser.add_argument("--area", type = list, default=None) #layer from 0 to 11
+    parser.add_argument("--area", type = str, default=None) #layer from 0 to 11
     parser.add_argument("--num_stories", type = int, default=10) #number of stories to consider
-    parser.add_argument("--mode", type = str, default = "reading") #or listening
+    parser.add_argument("--mode", type = str, default = "reading")
     args = parser.parse_args()
     
     stories = ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10"]
@@ -26,7 +29,6 @@ if __name__ == "__main__":
     resp_path = r"data_train\train_response"
     print("Subject", args.subject)
     print("Layer", args.layer)
-    
     print("Loading GPT")
     # load gpt
     with open(os.path.join(config.DATA_LM_DIR, args.gpt, "vocab.json"), "r") as f:
@@ -34,19 +36,17 @@ if __name__ == "__main__":
     gpt = GPT(path = os.path.join(config.DATA_LM_DIR, args.gpt, "model"), vocab = gpt_vocab, device = config.GPT_DEVICE)
     # can change the layer manually, also context size
     features = LMFeatures(model = gpt, layer = args.layer, context_words = config.GPT_WORDS)
-    
     print("Areas:", args.area)
-    
     print("Estimating Encoding model")    
+    # estimate encoding model
     rstim, tr_stats, word_stats = get_stim(stories, features)
-    rresp = get_resp(resp_path, args.subject, stories, stack=True, area=args.area, mode=args.mode)
+    rresp = get_resp(resp_path, args.subject, stories, stack=True, area=args.area, mode=args.mode, shuffle=True, area_list=False)
     nchunks = int(np.ceil(rstim.shape[0] / 5 / config.CHUNKLEN))
-
-    
     print("Starting bootstrap ridge regression")
     weights, alphas, bscorrs = bootstrap_ridge(rresp, rstim, use_corr = False, alphas = config.ALPHAS,
         nboots = config.NBOOTS, chunklen = config.CHUNKLEN, nchunks = nchunks)        
     bscorrs = bscorrs.mean(2).max(0)
+
     print("max(bscorrs) is ", max(bscorrs))
     vox = np.sort(np.argsort(bscorrs)[-config.VOXELS:])
     del rstim, rresp
@@ -71,16 +71,15 @@ if __name__ == "__main__":
     del stim_dict, resp_dict
         
     print("Saving the results")
-    
-    save_location = os.path.join(config.MODEL_DIR, args.subject, "_".join(args.area))
+    save_location = os.path.join(config.MODEL_DIR, args.subject, args.area)
     os.makedirs(save_location, exist_ok = True)
-    np.savez(os.path.join(save_location, "layer_%s%s%s" % (str(args.layer+1), "_area_", args.area)), 
+    np.savez(os.path.join(save_location, "layer_%s%s%s" % (str(args.layer+1), "_random_area_", args.area)), 
         weights = weights, noise_model = noise_model, alphas = alphas, voxels = vox, stories = stories,
         tr_stats = np.array(tr_stats), word_stats = np.array(word_stats), explained_variance=bscorrs)
-    with open(os.path.join(save_location, "layer_%s%s%s" % (str(args.layer+1), "_area_", args.area)), 'w') as file:
+    with open(os.path.join(save_location, "layer_%s%s%s" % (str(args.layer+1), "_random_area_", args.area)), 'w') as file:
         data = {
             'max_r2': max(bscorrs),
             'args': vars(args) 
         }
         json.dump(data, file, indent=4)
-  
+    
