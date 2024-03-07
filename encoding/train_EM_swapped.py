@@ -16,7 +16,7 @@ if __name__ == "__main__":
     parser.add_argument("--subject", type = str, required = True) #'01' to '09'
     parser.add_argument("--gpt", type = str, default = "perceived")
     parser.add_argument("--layer", type = int) #layer from 0 to 11
-    parser.add_argument("--area", type = list, default=None) #layer from 0 to 11
+    parser.add_argument("--area", type = list, default=None) #brain area
     parser.add_argument("--num_stories", type = int, default=10) #number of stories to consider
     parser.add_argument("--mode", type = str, default = "reading") #or listening
     args = parser.parse_args()
@@ -72,12 +72,17 @@ if __name__ == "__main__":
         
     print("Saving the results")
     
-    save_location = os.path.join(config.RESULT_DIR, args.subject, "_".join(args.area))
+    if len(args.area) == 1:
+        area_name = "_".join(args.area)
+    else:
+        area_name = args.area[0]
+        
+    save_location = os.path.join(config.RESULT_DIR, args.subject, area_name)
     os.makedirs(save_location, exist_ok = True)
-    np.savez(os.path.join(save_location, "layer_%s%s%s" % (str(args.layer+1), "_area_", args.area)), 
+    np.savez(os.path.join(save_location, "layer_%s%" % (str(args.layer+1))), 
         weights = weights, noise_model = noise_model, alphas = alphas, voxels = vox, stories = stories,
         tr_stats = np.array(tr_stats), word_stats = np.array(word_stats), explained_variance=bscorrs)
-    with open(os.path.join(save_location, "layer_%s%s%s" % (str(args.layer+1), "_area_", args.area)), 'w') as file:
+    with open(os.path.join(save_location, "layer_%s" % (str(args.layer+1)), 'w')) as file:
         data = {
             'max_r2': max(bscorrs),
             'args': vars(args) 

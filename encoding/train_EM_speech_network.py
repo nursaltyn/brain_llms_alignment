@@ -16,7 +16,7 @@ if __name__ == "__main__":
     parser.add_argument("--subject", type = str, required = True) #'01' to '09'
     parser.add_argument("--gpt", type = str, default = "perceived")
     parser.add_argument("--layer", type = int) #layer from 0 to 11
-    parser.add_argument("--area", type = list, default=["roi_mask_Broca", "roi_mask_AC", "roi_mask_sPMv"]) #layer from 0 to 11
+    parser.add_argument("--area", type = list, default=["roi_mask_Broca", "roi_mask_AC", "roi_mask_sPMv"]) #brain area
     parser.add_argument("--num_stories", type = int, default=10) #number of stories to consider
     parser.add_argument("--mode", type = str, default = "reading")
     args = parser.parse_args()

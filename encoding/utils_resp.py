@@ -7,7 +7,7 @@ import config
 # This code was mostly taken from Tang et al. (2023). Some edits are marked by "edit" comment
     
 # edit: added area choosing, mode, shuffle
-def get_resp(resp_path, subject, stories, area=None, stack = True, mode='reading', vox = None, shuffle=False, area_list=False):
+def get_resp(resp_path, subject, stories, area=None, stack = True, mode='reading', vox = None, shuffle=False, area_list=True):
     '''
     resp path (str): path to response
     subject (str): subject number in the format "01", "02", etc
@@ -51,7 +51,7 @@ def get_resp(resp_path, subject, stories, area=None, stack = True, mode='reading
 #     return mask
 
 # edit: new function
-def get_mask(areas, subject, list=False):
+def get_mask(areas, subject, list=True):
     '''
     areas :list: a list with the names of brain regions
     subject :str: the number of the subject in the format "01", ..., "09"

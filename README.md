@@ -1,7 +1,5 @@
 This seminar project is dedicated to aligning brain activations during fMRI reading with hidden states of Large Language Models. In this project, the variance explained by different brain regions in different layers of GPT was estimated. 
 
-Note: the paths have to be adjusted to be run on your computer. This will soon be fixed.
-
 # Usage
 
 ## 1. Getting data
