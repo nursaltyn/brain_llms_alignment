@@ -73,7 +73,7 @@ if __name__ == "__main__":
     
     print("Saving the results")
  
-    save_location = os.path.join(config.MODEL_DIR, args.subject, "temporal_network")
+    save_location = os.path.join(config.RESULT_DIR, args.subject, "temporal_network")
     os.makedirs(save_location, exist_ok = True)
     np.savez(os.path.join(save_location, "layer_%s" % (str(args.layer+1))), 
         weights = weights, noise_model = noise_model, alphas = alphas, voxels = vox, stories = stories,
