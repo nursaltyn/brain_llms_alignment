@@ -24,7 +24,7 @@ if __name__ == "__main__":
     
     stories = ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10"]
     stories = stories[:args.num_stories]
-    resp_path = r"C:\Users\Nursulu_1\Downloads\semantic-decoding\data_train\train_response"
+    resp_path = r"data_train/train_response"
     print("Subject", args.subject)
     print("Layer", args.layer)
     print("Loading GPT")

@@ -3,7 +3,8 @@ import numpy as np
 from transformers import AutoModelForCausalLM, AutoTokenizer
 from torch.nn.functional import softmax
 
-# this f=code was mostly taken from Tang et al. (2023)
+# This code was mostly taken from Tang et al. (2023)
+
 class GPT():    
     """wrapper for https://huggingface.co/openai-gpt
     """

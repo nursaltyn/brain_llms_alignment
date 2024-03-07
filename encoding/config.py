@@ -23,22 +23,7 @@ CHUNKLEN = 40
 GPT_LAYER = 9
 GPT_WORDS = 5
 
-# decoder parameters
-
-RANKED = True
-WIDTH = 200
-NM_ALPHA = 2/3
-LM_TIME = 8
-LM_MASS = 0.9
-LM_RATIO = 0.1
-EXTENSIONS = 5
-
-# evaluation parameters
-
-WINDOW = 20
-
 # devices
 
 GPT_DEVICE = "cuda"
 EM_DEVICE = "cuda"
-SM_DEVICE = "cuda"

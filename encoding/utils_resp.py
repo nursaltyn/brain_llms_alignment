@@ -4,23 +4,9 @@ import h5py
 
 import config
 
-# def get_resp_orig(subject, stories, stack = True, vox = None):
-#     """loads response data
-#     """
-#     subject_dir = os.path.join(config.DATA_TRAIN_DIR, "train_response", subject)
-#     resp = {}
-#     for story in stories:
-#         resp_path = os.path.join(subject_dir, "%s.hf5" % story)
-#         hf = h5py.File(resp_path, "r")
-#         resp[story] = np.nan_to_num(hf["data"][:])
-#         if vox is not None:
-#             resp[story] = resp[story][:, vox]
-#         hf.close()
-#     if stack: return np.vstack([resp[story] for story in stories]) 
-#     else: return resp
+# This code was mostly taken from Tang et al. (2023). Some edits are marked by "edit" comment
     
-# edit
-
+# edit: added area choosing, mode, shuffle
 def get_resp(resp_path, subject, stories, area=None, stack = True, mode='reading', vox = None, shuffle=False, area_list=False):
     '''
     resp path (str): path to response
@@ -39,7 +25,7 @@ def get_resp(resp_path, subject, stories, area=None, stack = True, mode='reading
             shuffled_array = np.random.permutation(hf_resp[f'story_{story}'])
             data = shuffled_array
             
-        # trim first and last 10 elements
+        # edit: trim first and last 10 elements
         resp[story] = data[10:-10]
         resp[story] = np.nan_to_num(resp[story][:])
         # TODO: try to normalize response (0-mean, st.d. 1)
@@ -50,26 +36,27 @@ def get_resp(resp_path, subject, stories, area=None, stack = True, mode='reading
     if stack: return np.vstack([resp[story] for story in stories]) 
     else: return resp
     
-def get_resp_eval(resp_path, subject, area=None, stack = True, mode='reading', vox = None): 
-    path = os.path.join(resp_path, f"{mode}\subject{subject}_{mode}_fmri_data_val.hdf")
-    pass
+# def get_resp_eval(resp_path, subject, area=None, stack = True, mode='reading', vox = None): 
+#     path = os.path.join(resp_path, f"{mode}\subject{subject}_{mode}_fmri_data_val.hdf")
+#     pass
     
 
-## old function for only one separate brain area 
+## a function for only one separate brain area 
 # def get_mask(area, subject):
-#     resp_path = f"C:\\Users\\Nursulu_1\\Downloads\\semantic-decoding\\mappers\\subject{subject}_mappers.hdf"
+#     resp_path = f"mappers/subject{subject}_mappers.hdf"
 #     hf = h5py.File(resp_path, "r")
 #     dataset = hf[area]
 #     mask = dataset[:]
 #     hf.close()
 #     return mask
 
+# edit: new function
 def get_mask(areas, subject, list=False):
     '''
     areas :list: a list with the names of brain regions
     subject :str: the number of the subject in the format "01", ..., "09"
     '''
-    resp_path = f"C:\\Users\\Nursulu_1\\Downloads\\semantic-decoding\\mappers\\subject{subject}_mappers.hdf"
+    resp_path = f"mappers/subject{subject}_mappers.hdf"
     hf = h5py.File(resp_path, "r")
     areas_combined = []
     if list == True:

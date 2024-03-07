@@ -253,7 +253,7 @@ class Block(nn.Module):
         self.mlp = MLP(4 * nx, config)
         self.ln_2 = nn.LayerNorm(nx, eps=config.layer_norm_epsilon)
 
-    # edit
+    # edit 
     def forward(self, x, attention_mask=None, head_mask=None, output_attentions=False, 
                 to_distort=False, layer_to_distort=None, subject=None, area=None, story=None,
                 mode='reading'):
@@ -272,8 +272,8 @@ class Block(nn.Module):
         print("type of h before:", type(h))
         if to_distort == True:
             # TODO: make paths more clear.
-            brain_path = r"C:\Users\Nursulu_1\Downloads\semantic-decoding\data_train\train_response"
-            weight_path = f"C:\\Users\\Nursulu_1\\Downloads\\semantic-decoding\\models\\{subject}\layer_{layer_to_distort+1}_area_{area}.npz"
+            brain_path = r"data_train/train_response"   # when we are in another folder, this path won't work
+            weight_path = f"results/{subject}/layer_{layer_to_distort+1}_area_{area}.npz"   # when we are in another folder, this path won't work
             brain_data = get_resp(brain_path, subject, [story], stack=True, area=area, mode=mode)
             data = np.load(weight_path)
             wt = data['weights']

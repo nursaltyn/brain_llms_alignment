@@ -14,7 +14,6 @@ np.random.seed(42)
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--subject", type = str, required = True) #'01' to '09'
-    # edit: somehow need to work with other models
     parser.add_argument("--gpt", type = str, default = "perceived")
     parser.add_argument("--layer", type = int) #layer from 0 to 11
     parser.add_argument("--area", type = list, default=["roi_mask_hMT", "roi_mask_ATFP"]) #layer from 0 to 11
@@ -25,7 +24,7 @@ if __name__ == "__main__":
     
     stories = ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10"]
     stories = stories[:args.num_stories]
-    resp_path = r"C:\Users\Nursulu_1\Downloads\semantic-decoding\data_train\train_response"
+    resp_path = r"data_train/train_response"
     print("Subject", args.subject)
     print("Layer", args.layer)
     print("Loading GPT")
