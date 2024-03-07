@@ -49,9 +49,20 @@ The following .py files are provided:
 
 --train_EM_occipital_network.py: learn a map for occipital network: Lateral Occipital Complex (LO), Occipital Face Area (OFA), Occipital Place Area (OPA).
 
+--train_EM_random.py: learn a map while shuffling the vectors for brain response (random baseline)
+
+--train_EM_no_delays.py: learn a map without delay matrices for text stimuli
+
 The areas were chosen based on the availability of the data for voxels of the regions for each participant. Not all subject's mappers contain information about all the regions. Below is the information on brain regions data available for each subject:
 
-- Subject 01: 
+- Subject 01: AC, ATFP, Broca, cIPL, hMT, IPS, LO, OFA, OPA, pSTS, sPMv, VO
+- Subject 02: AC, ATFP, Broca, cIPL, hMT, IPS, LO, OFA, OPA, sPMv, VO
+- Subject 03: AC, ATFP, Broca, hMT, IPS, LO, OFA, OPA, sPMv
+- Subject 05: AC, Broca, IPS, LO, OFA, OPA, sPMv
+- Subject 07: AC, Broca, cIPL, hMT, IPS, LO, OFA, OPA, sPMv
+- Subject 08: AC, Broca, cIPL, hMT, IPS, LO, OFA, OPA, sPMv
+
+*The deciphering of the abbreviations is provided in the appendix. 
 
 ## Results
 
@@ -69,7 +80,51 @@ Dataset: https://gin.g-node.org/denizenslab/narratives_reading_listening_fmri
 Dataset: https://openneuro.org/datasets/ds003020/versions/2.2.0.
 
 
-#### Appendix
+## Appendix
+
+### Brain regions and their size (voxels)
+
+    \item \textbf{\texttt{/roi\_mask\_AC}: Auditory Cortex [2300]}
+    \item \texttt{/roi\_mask\_ATFP}: Anterior Temporal Face Patch [42]
+    \item \texttt{/roi\_mask\_Broca}: Broca's Area [371]
+    \item \texttt{/roi\_mask\_EBA}: Extrastriate Body Area [311]
+    \item \texttt{/roi\_mask\_FEF}: Frontal Eye Fields [478]
+    \item \texttt{/roi\_mask\_FFA}: Fusiform Face Area [327]
+    \item \texttt{/roi\_mask\_FO}: Fusiform Gyrus [271]
+    \item \texttt{/roi\_mask\_IFSFP}: Inferior Frontal Sulcus Face Patch [310]
+    \item \textbf{\texttt{/roi\_mask\_IPS}: Intraparietal Sulcus [1076]}
+    \item \texttt{/roi\_mask\_LO}: Lateral Occipital Complex [291]
+    \item \texttt{/roi\_mask\_M1F}: Primary Motor Cortex - Feet Region [241]
+    \item \texttt{/roi\_mask\_M1H}: Primary Motor Cortex - Hand Region [228]
+    \item \texttt{/roi\_mask\_M1M}: Primary Motor Cortex - Mouth Region [339]
+    \item \texttt{/roi\_mask\_OFA}: Occipital Face Area [167]
+    \item \texttt{/roi\_mask\_OPA}: Occipital Place Area [219]
+    \item \texttt{/roi\_mask\_PMvh}: Ventral Premotor Cortex - Hand Region [37]
+    \item \texttt{/roi\_mask\_PPA}: Parahippocampal Place Area [178]
+    \item \texttt{/roi\_mask\_RSC}: Retrosplenial Cortex [285]
+    \item \texttt{/roi\_mask\_S1F}: Primary Somatosensory Cortex - Face Region [182]
+    \item \texttt{/roi\_mask\_S1H}: Primary Somatosensory Cortex - Hand Region [497]
+    \item \texttt{/roi\_mask\_S1M}: Primary Somatosensory Cortex - Mouth Region [459]
+    \item \texttt{/roi\_mask\_SEF}: Supplementary Eye Fields [51]
+    \item \texttt{/roi\_mask\_SMFA}: Supplementary Motor Foot Area [113]
+    \item \texttt{/roi\_mask\_SMHA}: Supplementary Motor Hand Area [154]
+    \item \texttt{/roi\_mask\_V1}: Primary Visual Cortex (Area 1) [674]
+    \item \texttt{/roi\_mask\_V2}: Secondary Visual Cortex (Area 2) [613]
+    \item \texttt{/roi\_mask\_V3}: Tertiary Visual Cortex (Area 3) [638]
+    \item \texttt{/roi\_mask\_V3A}: Visual Area 3A [149]
+    \item \texttt{/roi\_mask\_V3B}: Visual Area 3B [212]
+    \item \texttt{/roi\_mask\_V4}: Visual Area 4 [471]
+    \item \texttt{/roi\_mask\_V7}: Visual Area 7 [173]
+    \item \texttt{/roi\_mask\_VO}: Ventral Occipital Cortex [157]
+    \item \texttt{/roi\_mask\_cIPL}: \textbf{Caudal Inferior Parietal Lobe[785]}
+    \item \texttt{/roi\_mask\_hMT}: Human Middle Temporal Area [129]
+    \item \texttt{/roi\_mask\_pIC}: Posterior Insular Cortex [40]
+    \item \texttt{/roi\_mask\_pSTS}: Posterior Superior Temporal Sulcus [426]
+    \item \texttt{/roi\_mask\_sPMv}: Superior Ventral Premotor Speech Area [305]
+
+* Please note that the ROI masks are taken from [2], but we haven't found their descriptions. Therefore, our deciphering might be misaligned with the actual meaning of the mask. We tried to proof-read the abbreviations in other neuroscience works.
+
+### Story names 
 
 The names of the stimulus data from [2] and correspondong story names from [3]:
 
@@ -84,3 +139,4 @@ The names of the stimulus data from [2] and correspondong story names from [3]:
 - story_09 = souls
 - story_10 = undertheinfluence
 - story_11 = wheretheressmoke
+

@@ -14,7 +14,6 @@ np.random.seed(42)
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--subject", type = str, required = True) #'01' to '09'
-    # edit: somehow need to work with other models
     parser.add_argument("--gpt", type = str, default = "perceived")
     parser.add_argument("--layer", type = int) #layer from 0 to 11
     parser.add_argument("--area", type = str, default=None) #layer from 0 to 11
