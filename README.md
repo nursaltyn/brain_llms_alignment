@@ -28,12 +28,30 @@ Below is an example of a code to obtain a
 python encoding/train_EM_swapped.py --subject '01' --layer '0' --area 'roi_mask_Broca'
 ```
 --subject takes the number of a subject to estimate model for (str). Ranges from "01" to "09". 
+
 Note: fine-grained brain regions data is provided only for subjects "01", "02", "03", "05", "07", "08".
+
 --layer takes arguments from 0 to 11, corresponding to 12 layers of GPT model.
+
 --area takes brain regions that should be mapped to the GPT layer. It can either take a string (for one individual region) or list (for a concatenation of regions).
 
 We provide .bat scripts to run .py files automatically. 
 
+The following .py files are provided:
+
+--train_EM_swapped.py: to learn a linear map for the chosen combination of subject-brain region-layer.
+
+--train_EM_speech_network.py: learn a map for speech network: Auditory Cortex (AC), Broca's area, Superior Ventral Premotor Speech Area (sPMv).
+
+--train_EM_parietal_network.py: learn a map for parietal network: Intraparietal Sulcus (IPS), Caudal Inferior Parietal Lobe (cIPL).  
+
+--train_EM_temporal_network.py: learn a map for temporal network: Human Middle Temporal Area (hMT), Anterior Temporal Face Patch (ATFP), Posterior Superior Temporal Sulcus (pSTS).  
+
+--train_EM_occipital_network.py: learn a map for occipital network: Lateral Occipital Complex (LO), Occipital Face Area (OFA), Occipital Place Area (OPA).
+
+The areas were chosen based on the availability of the data for voxels of the regions for each participant. Not all subject's mappers contain information about all the regions. Below is the information on brain regions data available for each subject:
+
+- Subject 01: 
 
 ## Results
 
